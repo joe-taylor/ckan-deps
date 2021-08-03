@@ -1,0 +1,48 @@
+version: '3'
+
+services:
+  postgres:
+    build: db
+    environment:
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
+  redis:
+    image: redis:6.2-buster
+    ports:
+      - 6379:6379
+
+  keycloak:
+    image: jboss/keycloak
+    environment:
+      - KEYCLOAK_USER
+      - KEYCLOAK_PASSWORD
+    networks:
+      # keycloak gets its own network because postgres'
+      # presence in the same network is causing it to crash.
+      # Not sure if it's doing service discovery or what, but there's
+      # no need for them to share the same network so this is the easiest
+      # path forward.
+      - keycloak-network
+    ports:
+      - 9990:8080
+
+  solr:
+    image: solr:8.9.0
+    ports:
+      - 8983:8983
+
+  datapusher:
+    build: datapusher
+    ports:
+      - 8800:8800
+
+volumes:
+  pgdata:
+
+networks:
+  keycloak-network:
