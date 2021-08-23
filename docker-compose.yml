@@ -16,6 +16,7 @@ services:
     ports:
       - 6379:6379
 
+  # not strictly a ckan dependency
   keycloak:
     image: jboss/keycloak
     environment:
@@ -35,6 +36,8 @@ services:
     build: solr
     ports:
       - 8983:8983
+    volumes:
+      - solrdata:/opt/solr/server/solr/mycores
     command: ["solr-precreate-ckan", "ckan"]
 
   # datapusher:
@@ -42,12 +45,9 @@ services:
   #   ports:
   #     - 8800:8800
 
-  # pow:
-
-  # ofi:
-
 volumes:
   pgdata:
+  solrdata:
 
 networks:
   keycloak-network:
