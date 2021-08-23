@@ -36,10 +36,14 @@ services:
     ports:
       - 8983:8983
 
-  datapusher:
-    build: datapusher
-    ports:
-      - 8800:8800
+  # datapusher:
+  #   build: datapusher
+  #   ports:
+  #     - 8800:8800
+
+  # pow:
+
+  # ofi:
 
 volumes:
   pgdata:
