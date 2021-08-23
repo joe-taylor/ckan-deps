@@ -1,10 +1,9 @@
 #!/bin/bash
-# set -e
 
-# psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL
-#     if not exists create user ckan;
-#     if not exists create user datastore;
-#     if not exists create database datastore;
-#     if not exists create database 
-#     grant all privileges on database docker to docker;
-# EOSQL
+createuser ckan 2>/dev/null
+createuser datastore 2>/dev/null
+
+createdb -O ckan ckan 2>/dev/null
+createdb -O ckan datastore 2>/dev/null
+createdb -O ckan ckan_test 2>/dev/null
+createdb -O ckan datastore_test 2>/dev/null
