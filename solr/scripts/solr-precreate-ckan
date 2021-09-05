@@ -19,6 +19,8 @@ fi
 
 . /opt/docker-solr/scripts/run-initdb
 
-/opt/docker-solr/scripts/precreate-ckan "$@"
+for arg in $@ ; do
+  /opt/docker-solr/scripts/precreate-ckan "$arg"
+done
 
 exec solr -f

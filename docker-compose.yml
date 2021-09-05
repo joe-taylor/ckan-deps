@@ -38,7 +38,7 @@ services:
       - 8983:8983
     volumes:
       - solrdata:/opt/solr/server/solr/mycores
-    command: ["solr-precreate-ckan", "ckan"]
+    command: ["solr-precreate-ckan", "ckan", "ckantest"]
 
   # datapusher:
   #   build: datapusher
