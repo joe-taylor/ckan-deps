@@ -9,12 +9,12 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
     ports:
-      - 5432:5432
+      - 127.0.0.1:5432:5432
 
   redis:
     image: redis:6.2-buster
     ports:
-      - 6379:6379
+      - 127.0.0.1:6379:6379
 
   # not strictly a ckan dependency
   keycloak:
@@ -30,12 +30,12 @@ services:
       # path forward.
       - keycloak-network
     ports:
-      - 9990:8080
+      - 127.0.0.1:9990:8080
 
   solr:
     build: solr
     ports:
-      - 8983:8983
+      - 127.0.0.1:8983:8983
     volumes:
       - solrdata:/opt/solr/server/solr/mycores
     command: ["solr-precreate-ckan", "ckan", "ckantest"]
